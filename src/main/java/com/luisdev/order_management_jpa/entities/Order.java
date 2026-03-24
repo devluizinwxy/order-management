@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luisdev.order_management_jpa.entities.enuns.OrderStatus;
 import jakarta.persistence.*;
 
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
@@ -37,11 +38,10 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(Integer orderId, Instant orderDate, Double totalPrice, OrderStatus orderStatus) {
-        this.orderId = orderId;
-        this.orderDate = orderDate;
+    public Order(Double totalPrice) {
+        this.orderDate = Instant.now();
         this.totalPrice = totalPrice;
-        this.orderStatus = orderStatus;
+        this.orderStatus = OrderStatus.PENDING;
     }
 
     public Integer getOrderId() {
