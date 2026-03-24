@@ -1,6 +1,7 @@
 package com.luisdev.order_management_jpa.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luisdev.order_management_jpa.entities.enuns.OrderStatus;
 import jakarta.persistence.*;
 
@@ -14,13 +15,25 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderId;
-     @Col
+
     private Instant orderDate;
-
+   @Column(nullable = false, precision = 19, scale = 2)
     private Double totalPrice;
-
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
+    private User user;
     public Order() {
     }
 

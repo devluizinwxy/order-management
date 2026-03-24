@@ -1,16 +1,30 @@
 package com.luisdev.order_management_jpa.entities;
 
-import java.io.Serializable;
-import java.util.Objects;
+import jakarta.persistence.*;
 
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+@Entity
+@Table(name = "tb_user")
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(nullable = false)
     private String name;
-    private String email;
-    private String password;
-    private String cpf;
+    @Column(nullable = false)
 
+    private String email;
+    @Column(nullable = false,  length = 20)
+    private String password;
+    @Column(unique = true, nullable = false,  length = 11)
+    private String cpf;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
+    private List<Order> orders = new ArrayList<>();
     public User() {
     }
 
@@ -62,6 +76,20 @@ public class User implements Serializable {
         this.cpf = cpf;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+
+    public void addOrder(Order order) {
+         this.orders.add(order);
+        order.setUser(this);
+    }
+    public void removeOrder(Order order) {
+        this.orders.remove(order);
+        order.setUser(null);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -73,4 +101,5 @@ public class User implements Serializable {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
 }
