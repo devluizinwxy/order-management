@@ -2,6 +2,7 @@ package com.luisdev.order_management_jpa.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.luisdev.order_management_jpa.entities.dtos.OrderRequestDTO;
 import com.luisdev.order_management_jpa.entities.enuns.OrderStatus;
 import jakarta.persistence.*;
 

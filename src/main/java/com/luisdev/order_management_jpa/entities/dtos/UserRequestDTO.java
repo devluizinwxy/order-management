@@ -1,6 +1,7 @@
 package com.luisdev.order_management_jpa.entities.dtos;
 
 
+import com.luisdev.order_management_jpa.entities.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -20,4 +21,7 @@ public record  UserRequestDTO(
         @NotNull(message = "CPF not null")
         @CPF(message = "CPF invalid")
         String cpf) {
+    public User toUserEntity() {
+        return new User(this.name, this.email, this.password, this.cpf);
+    }
 }
