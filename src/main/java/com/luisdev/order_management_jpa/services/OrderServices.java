@@ -22,7 +22,7 @@ public class OrderServices {
         List<Order> orderList = orderRepository.findAll();
         return orderList.stream().map(order -> OrderResponseDTO.fromEntity(order)).toList();
     }
-    public OrderResponseDTO findById(long id){
+    public OrderResponseDTO findById(Integer id){
         Order order = orderRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException(id));
         return OrderResponseDTO.fromEntity(order);
     }
@@ -48,6 +48,6 @@ public class OrderServices {
         }catch(DataIntegrityViolationException e){
             throw new DatabaseException(e.getMessage());
         }
-        
+
     }
 }
