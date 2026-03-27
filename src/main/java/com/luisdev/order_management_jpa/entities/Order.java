@@ -19,7 +19,7 @@ public class Order implements Serializable {
     private Integer orderId;
 
     private Instant orderDate;
-   @Column(nullable = false, precision = 19, scale = 2)
+   @Column(nullable = false)
     private Double totalPrice;
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
